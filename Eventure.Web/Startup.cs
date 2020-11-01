@@ -25,9 +25,9 @@ namespace Eventure.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEventStoreRepositories();
-            services.AddEventStore(_config.GetSection("MongoDb"));
+            services.AddEventStore(_config.GetSection("EventStore"));
             services.AddReadStoreRepositories();
-            services.AddReadStore(_config.GetSection("SqlServer"));
+            services.AddReadStore(_config.GetSection("ReadStore"));
             services.AddMediatR(typeof(OpenStoreHandler));
             services.AddControllers();
         }

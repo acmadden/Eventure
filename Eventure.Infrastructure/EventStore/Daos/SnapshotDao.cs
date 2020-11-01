@@ -4,13 +4,12 @@ using MongoDB.Bson;
 
 namespace Eventure.Infrastructure.EventStore.Daos
 {
-    public class EventDao
+    public class SnapshotDao
     {
         public ObjectId Id { get; set; }
         public Guid AggregateId { get; set; }
-        public string Aggregate { get; set; }
         public int Version { get; set; }
-        public IDomainEvent Data { get; set; }
+        public ISnapshotData Data { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

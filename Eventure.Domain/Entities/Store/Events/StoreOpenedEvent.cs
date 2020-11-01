@@ -4,7 +4,7 @@ namespace Eventure.Domain.Entities
 {
     public class StoreOpenedEvent : IDomainEvent
     {
-        public Guid Id { get; private set; }
+        public Guid AggregateId { get; private set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location Location { get; set; }
@@ -13,7 +13,7 @@ namespace Eventure.Domain.Entities
 
         public StoreOpenedEvent(string name, string phoneNumber, Location location)
         {
-            Id = Guid.NewGuid();
+            AggregateId = Guid.NewGuid();
             Name = name;
             PhoneNumber = phoneNumber;
             Location = location;

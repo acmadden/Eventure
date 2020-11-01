@@ -27,13 +27,38 @@ namespace Eventure.Domain.Entities
             return store;
         }
 
+        public void ChangePhoneNumber(string phoneNumber)
+        {
+            if (PhoneNumber == phoneNumber)
+            {
+                throw new PhoneNumberUnchangedException();
+            }
+
+            Apply(new StorePhoneNumberChangeEvent(phoneNumber) { AggregateId = Id });
+        }
+
+        public void On(Store snapshot)
+        {
+            Id = snapshot.Id;
+            Version = snapshot.Version;
+            Name = snapshot.Name;
+            PhoneNumber = snapshot.PhoneNumber;
+            Location = snapshot.Location;
+            IsActive = snapshot.IsActive;
+        }
+
         public void On(StoreOpenedEvent @event)
         {
-            Id = @event.Id;
+            Id = @event.AggregateId;
             Name = @event.Name;
             PhoneNumber = @event.PhoneNumber;
             Location = @event.Location;
             IsActive = @event.IsActive;
+        }
+
+        public void On(StorePhoneNumberChangeEvent @event)
+        {
+            PhoneNumber = @event.PhoneNumber;
         }
     }
 }

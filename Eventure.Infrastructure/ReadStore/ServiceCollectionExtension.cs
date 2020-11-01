@@ -18,6 +18,7 @@ namespace Eventure.Infrastructure.ReadStore
         public static IServiceCollection AddReadStoreRepositories(this IServiceCollection services)
         {
             services.AddTransient<IProjectionRepository<StoreOpenedEvent>, StoreProjectionRepository>();
+            services.AddTransient<IProjectionRepository<StorePhoneNumberChangeEvent>, StoreProjectionRepository>();
             return services;
         }
     }

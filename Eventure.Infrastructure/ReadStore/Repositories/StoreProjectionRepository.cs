@@ -7,7 +7,9 @@ using Microsoft.Extensions.Options;
 
 namespace Eventure.Infrastructure.ReadStore.Repositories
 {
-    public class StoreProjectionRepository : ProjectionRepositoryBase, IProjectionRepository<StoreOpenedEvent>
+    public class StoreProjectionRepository : ProjectionRepositoryBase,
+        IProjectionRepository<StoreOpenedEvent>,
+        IProjectionRepository<StorePhoneNumberChangeEvent>
     {
         public StoreProjectionRepository(IOptions<SqlServerSettings> options) : base(options) { }
 
@@ -17,7 +19,7 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
                 VALUES(@Id, @Name, @PhoneNumber, @Street, @City, @State, @PostalCode, @Country, @IsActive)";
             var parameters = new
             {
-                Id = @event.Id,
+                Id = @event.AggregateId,
                 Name = @event.Name,
                 PhoneNumber = @event.PhoneNumber,
                 Street = @event.Location.Street,
@@ -28,6 +30,12 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
                 IsActive = @event.IsActive
             };
             await _connection.ExecuteAsync(sql, parameters);
+        }
+
+        public async Task ProjectAsync(StorePhoneNumberChangeEvent @event)
+        {
+            var sql = @"UPDATE dbo.Stores SET PhoneNumber = @PhoneNumber WHERE Id = @AggregateId";
+            await _connection.ExecuteAsync(sql, @event);
         }
     }
 }

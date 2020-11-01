@@ -1,7 +1,7 @@
 using System;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
-using Eventure.Infrastructure.EventStore.Dao;
+using Eventure.Infrastructure.EventStore.Daos;
 using Eventure.Infrastructure.EventStore.Repositories;
 using Eventure.Infrastructure.EventStore.Settings;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +14,10 @@ namespace Eventure.Infrastructure.EventStore
     {
         public static IServiceCollection AddEventStore(this IServiceCollection services, IConfigurationSection section)
         {
-            BsonClassMap.RegisterClassMap<EventDao>();
+            BsonClassMap.RegisterClassMap<Store>();
             BsonClassMap.RegisterClassMap<StoreOpenedEvent>();
-            services.Configure<MongoDbSettings>(section);
+            BsonClassMap.RegisterClassMap<StorePhoneNumberChangeEvent>();
+            services.Configure<EventStoreSettings>(section);
             services.AddScoped<Context>();
             return services;
         }

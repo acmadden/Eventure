@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Eventure.Domain
 {
-    public abstract class EventSourceEntity
+    public abstract class EventSourceEntity : ISnapshotData
     {
         private readonly List<IDomainEvent> _changes = new List<IDomainEvent>();
         public int Version { get; internal set; }
@@ -10,12 +10,19 @@ namespace Eventure.Domain
 
         protected EventSourceEntity() { }
 
-        public void Initialize(IEnumerable<IDomainEvent> changes)
+        public void Initialize(ISnapshotData snapshot, IEnumerable<IDomainEvent> changes)
         {
             if (changes == null)
             {
                 return;
             }
+
+            if (snapshot != null)
+            {
+                Mutate(snapshot);
+                Version++;
+            }
+
             foreach (var change in changes)
             {
                 Mutate(change);
@@ -42,6 +49,8 @@ namespace Eventure.Domain
             Mutate(@event);
             AddDomainEvent(@event);
         }
+
+        private void Mutate(ISnapshotData snapshot) => ((dynamic)this).On((dynamic)snapshot);
 
         private void Mutate(IDomainEvent @event) => ((dynamic)this).On((dynamic)@event);
     }
