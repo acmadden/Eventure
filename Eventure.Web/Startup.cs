@@ -1,5 +1,6 @@
 using Eventure.Application.Commands;
 using Eventure.Infrastructure.EventStore;
+using Eventure.Infrastructure.ReadStore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,8 @@ namespace Eventure.Web
         {
             services.AddEventStoreRepositories();
             services.AddEventStore(_config.GetSection("MongoDb"));
+            services.AddReadStoreRepositories();
+            services.AddReadStore(_config.GetSection("SqlServer"));
             services.AddMediatR(typeof(OpenStoreHandler));
             services.AddControllers();
         }

@@ -23,11 +23,11 @@ namespace Eventure.Domain.Entities
             }
 
             var store = new Store();
-            store.Apply(new StoreOpened(name, phoneNumber, location));
+            store.Apply(new StoreOpenedEvent(name, phoneNumber, location));
             return store;
         }
 
-        public void On(StoreOpened @event)
+        public void On(StoreOpenedEvent @event)
         {
             Id = @event.Id;
             Name = @event.Name;

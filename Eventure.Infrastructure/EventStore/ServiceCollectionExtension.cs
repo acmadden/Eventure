@@ -15,7 +15,7 @@ namespace Eventure.Infrastructure.EventStore
         public static IServiceCollection AddEventStore(this IServiceCollection services, IConfigurationSection section)
         {
             BsonClassMap.RegisterClassMap<EventDao>();
-            BsonClassMap.RegisterClassMap<StoreOpened>();
+            BsonClassMap.RegisterClassMap<StoreOpenedEvent>();
             services.Configure<MongoDbSettings>(section);
             services.AddScoped<Context>();
             return services;

@@ -2,7 +2,7 @@ using System;
 
 namespace Eventure.Domain.Entities
 {
-    public class StoreOpened : IDomainEvent
+    public class StoreOpenedEvent : IDomainEvent
     {
         public Guid Id { get; private set; }
         public string Name { get; set; }
@@ -11,7 +11,7 @@ namespace Eventure.Domain.Entities
         public bool IsActive { get; private set; }
         public DateTime CreatedAt { get; set; }
 
-        public StoreOpened(string name, string phoneNumber, Location location)
+        public StoreOpenedEvent(string name, string phoneNumber, Location location)
         {
             Id = Guid.NewGuid();
             Name = name;
