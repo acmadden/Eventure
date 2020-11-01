@@ -21,25 +21,10 @@ namespace Eventure.Domain.Entities
             return store;
         }
 
-        public void PhoneNumberChange(string phoneNumber)
-        {
-            Apply(new PhoneNumberChange(phoneNumber));
-        }
-
         public void On(StoreOpened @event)
         {
             Id = @event.Id;
             Name = @event.Name;
-        }
-
-        public void On(PhoneNumberChange @event)
-        {
-            if (@event.PhoneNumber == PhoneNumber)
-            {
-                throw new UnchangedPhoneNumberException();
-            }
-
-            PhoneNumber = @event.PhoneNumber;
         }
     }
 }

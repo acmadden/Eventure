@@ -42,12 +42,5 @@ namespace Eventure.Web.Controllers
                 PhoneNumber = store.PhoneNumber
             };
         }
-
-        [HttpPut("{id}")]
-        public async Task PhoneNumberChangeAsync(Guid id, [FromBody] PhoneNumberChangeCommand command)
-        {
-            command.Id = id;
-            await _mediator.Send(command);
-        }
     }
 }

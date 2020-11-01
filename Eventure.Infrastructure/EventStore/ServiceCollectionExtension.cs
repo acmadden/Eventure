@@ -16,7 +16,6 @@ namespace Eventure.Infrastructure.EventStore
         {
             BsonClassMap.RegisterClassMap<EventDao>();
             BsonClassMap.RegisterClassMap<StoreOpened>();
-            BsonClassMap.RegisterClassMap<PhoneNumberChange>();
             services.Configure<MongoDbSettings>(section);
             services.AddScoped<Context>();
             return services;
