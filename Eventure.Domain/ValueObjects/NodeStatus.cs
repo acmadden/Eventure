@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Eventure.Domain.Entities
+namespace Eventure.Domain.ValueObjects
 {
     public class NodeStatus : ValueObject
     {

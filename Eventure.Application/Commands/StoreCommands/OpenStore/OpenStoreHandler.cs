@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Eventure.Application.Repositories;
 using Eventure.Domain;
 using Eventure.Domain.Entities;
+using Eventure.Domain.ValueObjects;
 using MediatR;
 
 namespace Eventure.Application.Commands

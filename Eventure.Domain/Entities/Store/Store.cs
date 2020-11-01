@@ -1,4 +1,5 @@
 using System;
+using Eventure.Domain.ValueObjects;
 
 namespace Eventure.Domain.Entities
 {

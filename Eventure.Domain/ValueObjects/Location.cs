@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Eventure.Domain
+namespace Eventure.Domain.ValueObjects
 {
     public class Location : ValueObject
     {
