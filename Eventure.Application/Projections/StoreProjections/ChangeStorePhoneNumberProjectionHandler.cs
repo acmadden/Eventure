@@ -8,16 +8,16 @@ namespace Eventure.Application.Projections
 {
     public class ChangeStorePhoneNumberProjectionHandler : INotificationHandler<StorePhoneNumberChangeEvent>
     {
-        private readonly IProjectionRepository<StorePhoneNumberChangeEvent> _repository;
+        private readonly IWriteProjectionRepository<StorePhoneNumberChangeEvent> _repository;
 
-        public ChangeStorePhoneNumberProjectionHandler(IProjectionRepository<StorePhoneNumberChangeEvent> repository)
+        public ChangeStorePhoneNumberProjectionHandler(IWriteProjectionRepository<StorePhoneNumberChangeEvent> repository)
         {
             _repository = repository;
         }
 
         public async Task Handle(StorePhoneNumberChangeEvent @event, CancellationToken cancellationToken)
         {
-            await _repository.ProjectAsync(@event);
+            await _repository.WriteAsync(@event);
         }
     }
 }

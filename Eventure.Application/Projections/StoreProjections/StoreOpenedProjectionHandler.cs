@@ -8,15 +8,15 @@ namespace Eventure.Application.Projections
 {
     public class StoreOpenedProjectionHandler : INotificationHandler<StoreOpenedEvent>
     {
-        private readonly IProjectionRepository<StoreOpenedEvent> _repository;
+        private readonly IWriteProjectionRepository<StoreOpenedEvent> _repository;
 
-        public StoreOpenedProjectionHandler(IProjectionRepository<StoreOpenedEvent> repository)
+        public StoreOpenedProjectionHandler(IWriteProjectionRepository<StoreOpenedEvent> repository)
         {
             _repository = repository;
         }
         public async Task Handle(StoreOpenedEvent @event, CancellationToken cancellationToken)
         {
-            await _repository.ProjectAsync(@event);
+            await _repository.WriteAsync(@event);
         }
     }
 }

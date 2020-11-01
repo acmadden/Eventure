@@ -1,24 +1,24 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Eventure.Application.ReadStore.ReadModels;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
 using MediatR;
 
 namespace Eventure.Application.Queries
 {
-    public class GetStoreInfoHandler : IRequestHandler<GetStoreInfoQuery, Store>
+    public class GetStoreInfoHandler : IRequestHandler<GetStoreInfoQuery, StoreReadModel>
     {
-        private readonly IEventStoreRepository<Store> _repository;
+        private readonly IReadProjectionRepository<StoreReadModel> _repository;
 
-        public GetStoreInfoHandler(IEventStoreRepository<Store> repository)
+        public GetStoreInfoHandler(IReadProjectionRepository<StoreReadModel> repository)
         {
             _repository = repository;
         }
 
-        public async Task<Store> Handle(GetStoreInfoQuery request, CancellationToken cancellationToken)
+        public async Task<StoreReadModel> Handle(GetStoreInfoQuery request, CancellationToken cancellationToken)
         {
-            return await _repository.FetchAsync(request.Id);
+            return await _repository.FetchByIdAsync(request.Id);
         }
     }
 }

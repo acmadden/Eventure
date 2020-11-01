@@ -1,3 +1,4 @@
+using Eventure.Application.ReadStore.ReadModels;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
 using Eventure.Infrastructure.ReadStore.Repositories;
@@ -17,9 +18,10 @@ namespace Eventure.Infrastructure.ReadStore
 
         public static IServiceCollection AddReadStoreRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IProjectionRepository<StoreOpenedEvent>, StoreProjectionRepository>();
-            services.AddTransient<IProjectionRepository<StorePhoneNumberChangeEvent>, StoreProjectionRepository>();
-            services.AddTransient<IProjectionRepository<NodeInstalledEvent>, NodeProjectionRepository>();
+            services.AddTransient<IWriteProjectionRepository<StoreOpenedEvent>, StoreWriteProjectionRepository>();
+            services.AddTransient<IWriteProjectionRepository<StorePhoneNumberChangeEvent>, StoreWriteProjectionRepository>();
+            services.AddTransient<IWriteProjectionRepository<NodeInstalledEvent>, NodeWriteProjectionRepository>();
+            services.AddTransient<IReadProjectionRepository<StoreReadModel>, StoreReadProjectionRepository>();
             return services;
         }
     }

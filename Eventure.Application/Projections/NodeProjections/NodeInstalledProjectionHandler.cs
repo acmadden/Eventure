@@ -8,16 +8,16 @@ namespace Eventure.Application.Projections
 {
     public class NodeInstalledProjectionHandler : INotificationHandler<NodeInstalledEvent>
     {
-        private readonly IProjectionRepository<NodeInstalledEvent> _repository;
+        private readonly IWriteProjectionRepository<NodeInstalledEvent> _repository;
 
-        public NodeInstalledProjectionHandler(IProjectionRepository<NodeInstalledEvent> repository)
+        public NodeInstalledProjectionHandler(IWriteProjectionRepository<NodeInstalledEvent> repository)
         {
             _repository = repository;
         }
 
         public async Task Handle(NodeInstalledEvent @event, CancellationToken cancellationToken)
         {
-            await _repository.ProjectAsync(@event);
+            await _repository.WriteAsync(@event);
         }
     }
 }

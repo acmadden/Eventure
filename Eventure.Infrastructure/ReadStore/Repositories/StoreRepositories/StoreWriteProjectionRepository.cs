@@ -7,13 +7,13 @@ using Microsoft.Extensions.Options;
 
 namespace Eventure.Infrastructure.ReadStore.Repositories
 {
-    public class StoreProjectionRepository : ProjectionRepositoryBase,
-        IProjectionRepository<StoreOpenedEvent>,
-        IProjectionRepository<StorePhoneNumberChangeEvent>
+    public class StoreWriteProjectionRepository : ProjectionRepositoryBase,
+        IWriteProjectionRepository<StoreOpenedEvent>,
+        IWriteProjectionRepository<StorePhoneNumberChangeEvent>
     {
-        public StoreProjectionRepository(IOptions<SqlServerSettings> options) : base(options) { }
+        public StoreWriteProjectionRepository(IOptions<SqlServerSettings> options) : base(options) { }
 
-        public async Task ProjectAsync(StoreOpenedEvent @event)
+        public async Task WriteAsync(StoreOpenedEvent @event)
         {
             string sql = @"INSERT INTO dbo.Stores(Id, Name, PhoneNumber, Street, City, State, PostalCode, Country, IsActive) 
                 VALUES(@Id, @Name, @PhoneNumber, @Street, @City, @State, @PostalCode, @Country, @IsActive)";
@@ -32,7 +32,7 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
             await _connection.ExecuteAsync(sql, parameters);
         }
 
-        public async Task ProjectAsync(StorePhoneNumberChangeEvent @event)
+        public async Task WriteAsync(StorePhoneNumberChangeEvent @event)
         {
             var sql = @"UPDATE dbo.Stores SET PhoneNumber = @PhoneNumber WHERE Id = @AggregateId";
             await _connection.ExecuteAsync(sql, @event);
