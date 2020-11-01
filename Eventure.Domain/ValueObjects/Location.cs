@@ -8,6 +8,7 @@ namespace Eventure.Domain
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
+        public string Country { get; set; }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
@@ -15,6 +16,7 @@ namespace Eventure.Domain
             yield return City;
             yield return State;
             yield return PostalCode;
+            yield return Country;
         }
     }
 }

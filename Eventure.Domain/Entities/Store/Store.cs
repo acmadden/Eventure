@@ -9,15 +9,26 @@ namespace Eventure.Domain.Entities
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location Location { get; set; }
+        public bool IsActive { get; set; }
 
-        public Store() { }
+        internal Store() { }
 
         public Store(IEnumerable<IDomainEvent> events) : base(events) { }
 
-        public static Store OpenStore(string name)
+        public static Store OpenStore(string name, string phoneNumber, Location location)
         {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidStoreNameException();
+            }
+
+            if (String.IsNullOrEmpty(phoneNumber))
+            {
+                throw new InvalidPhoneNumberException();
+            }
+
             var store = new Store();
-            store.Apply(new StoreOpened(Guid.NewGuid(), name));
+            store.Apply(new StoreOpened(name, phoneNumber, location));
             return store;
         }
 
@@ -25,6 +36,9 @@ namespace Eventure.Domain.Entities
         {
             Id = @event.Id;
             Name = @event.Name;
+            PhoneNumber = @event.PhoneNumber;
+            Location = @event.Location;
+            IsActive = @event.IsActive;
         }
     }
 }

@@ -1,12 +1,7 @@
-using Eventure.Domain.Entities;
-using MediatR;
-
-namespace Eventure.Application.Commands
+namespace Eventure.Web.ViewModels
 {
-    public class OpenStoreCommand : IRequest<Store>
+    public class LocationViewModel
     {
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string State { get; set; }

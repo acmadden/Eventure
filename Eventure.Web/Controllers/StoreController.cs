@@ -39,7 +39,15 @@ namespace Eventure.Web.Controllers
             {
                 Id = store.Id,
                 Name = store.Name,
-                PhoneNumber = store.PhoneNumber
+                PhoneNumber = store.PhoneNumber,
+                Location = new LocationViewModel()
+                {
+                    Street = store.Location.Street,
+                    City = store.Location.City,
+                    State = store.Location.State,
+                    PostalCode = store.Location.PostalCode,
+                    Country = store.Location.Country
+                }
             };
         }
     }

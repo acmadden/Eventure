@@ -7,5 +7,6 @@ namespace Eventure.Web.ViewModels
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
+        public LocationViewModel Location { get; set; }
     }
 }

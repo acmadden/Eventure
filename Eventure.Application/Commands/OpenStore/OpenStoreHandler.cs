@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Eventure.Application.Repositories;
+using Eventure.Domain;
 using Eventure.Domain.Entities;
 using MediatR;
 
@@ -18,7 +19,14 @@ namespace Eventure.Application.Commands
 
         public async Task<Store> Handle(OpenStoreCommand request, CancellationToken cancellationToken)
         {
-            var store = Store.OpenStore(request.Name);
+            var store = Store.OpenStore(request.Name, request.PhoneNumber, new Location()
+            {
+                Street = request.Street,
+                City = request.City,
+                State = request.State,
+                PostalCode = request.PostalCode,
+                Country = request.Country
+            });
             await _repository.SaveAsync(store);
             return store;
         }

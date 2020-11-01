@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
 using Eventure.Infrastructure.EventStore.Dao;
+using MediatR;
 using MongoDB.Driver;
 
 namespace Eventure.Infrastructure.EventStore.Repositories
@@ -12,27 +13,30 @@ namespace Eventure.Infrastructure.EventStore.Repositories
     public class StoreRepository : IEventStoreRepository<Store, Guid>
     {
         private readonly Context _context;
+        private readonly IMediator _mediator;
 
-        public StoreRepository(Context context)
+        public StoreRepository(Context context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
 
         public async Task SaveAsync(Store aggregate)
         {
-            var events = new List<EventDao>();
+
             foreach (var domainEvent in aggregate.DomainEvents)
             {
-                events.Add(new EventDao()
+                var @event = new EventDao()
                 {
                     AggregateId = aggregate.Id,
                     Aggregate = typeof(Store).FullName,
                     Version = aggregate.Version,
                     Data = domainEvent,
                     CreatedAt = domainEvent.CreatedAt
-                });
+                };
+                await _context.Events.InsertOneAsync(@event);
+                await _mediator.Publish(domainEvent);
             }
-            await _context.Events.InsertManyAsync(events);
         }
 
         public async Task<Store> FetchAsync(Guid aggregateId)
