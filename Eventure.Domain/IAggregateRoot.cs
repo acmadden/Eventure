@@ -1,4 +1,6 @@
+using System;
+
 namespace Eventure.Domain
 {
-    public interface IAggregateRoot<TId> : IEntity<TId> { }
+    public interface IAggregateRoot : IEntity<Guid> { }
 }

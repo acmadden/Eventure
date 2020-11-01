@@ -23,7 +23,7 @@ namespace Eventure.Infrastructure.EventStore
 
         public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IEventStoreRepository<Store, Guid>, StoreRepository>();
+            services.AddTransient(typeof(IEventStoreRepository<>), typeof(EventStoreRepository<>));
             return services;
         }
     }

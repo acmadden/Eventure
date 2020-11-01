@@ -5,12 +5,12 @@ namespace Eventure.Domain
     public abstract class EventSourceEntity
     {
         private readonly List<IDomainEvent> _changes = new List<IDomainEvent>();
-        public int Version { get; }
+        public int Version { get; internal set; }
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _changes.AsReadOnly();
 
         protected EventSourceEntity() { }
 
-        public EventSourceEntity(IEnumerable<IDomainEvent> changes)
+        public void Initialize(IEnumerable<IDomainEvent> changes)
         {
             if (changes == null)
             {

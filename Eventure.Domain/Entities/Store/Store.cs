@@ -1,19 +1,14 @@
 using System;
-using System.Collections.Generic;
 
 namespace Eventure.Domain.Entities
 {
-    public class Store : EventSourceEntity, IAggregateRoot<Guid>
+    public class Store : EventSourceEntity, IAggregateRoot
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location Location { get; set; }
         public bool IsActive { get; set; }
-
-        internal Store() { }
-
-        public Store(IEnumerable<IDomainEvent> events) : base(events) { }
 
         public static Store OpenStore(string name, string phoneNumber, Location location)
         {
