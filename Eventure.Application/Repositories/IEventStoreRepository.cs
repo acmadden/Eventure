@@ -3,7 +3,7 @@ using Eventure.Domain;
 
 namespace Eventure.Application.Repositories
 {
-    public interface IRepository<TAggregate, TId> where TAggregate : IAggregateRoot<TId>
+    public interface IEventStoreRepository<TAggregate, TId> where TAggregate : IAggregateRoot<TId>
     {
         Task SaveAsync(TAggregate aggregate);
 

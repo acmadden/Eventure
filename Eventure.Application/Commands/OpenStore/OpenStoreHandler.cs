@@ -9,9 +9,9 @@ namespace Eventure.Application.Commands
 {
     public class OpenStoreHandler : IRequestHandler<OpenStoreCommand, Store>
     {
-        private readonly IRepository<Store, Guid> _repository;
+        private readonly IEventStoreRepository<Store, Guid> _repository;
 
-        public OpenStoreHandler(IRepository<Store, Guid> repository)
+        public OpenStoreHandler(IEventStoreRepository<Store, Guid> repository)
         {
             _repository = repository;
         }

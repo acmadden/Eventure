@@ -9,9 +9,9 @@ namespace Eventure.Application.Queries
 {
     public class GetStoreInfoHandler : IRequestHandler<GetStoreInfoQuery, Store>
     {
-        private readonly IRepository<Store, Guid> _repository;
+        private readonly IEventStoreRepository<Store, Guid> _repository;
 
-        public GetStoreInfoHandler(IRepository<Store, Guid> repository)
+        public GetStoreInfoHandler(IEventStoreRepository<Store, Guid> repository)
         {
             _repository = repository;
         }

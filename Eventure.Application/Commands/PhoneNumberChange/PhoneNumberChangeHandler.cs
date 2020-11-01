@@ -9,9 +9,9 @@ namespace Eventure.Application.Commands
 {
     public class PhoneNumberChangeHandler : IRequestHandler<PhoneNumberChangeCommand>
     {
-        private readonly IRepository<Store, Guid> _repository;
+        private readonly IEventStoreRepository<Store, Guid> _repository;
 
-        public PhoneNumberChangeHandler(IRepository<Store, Guid> repository)
+        public PhoneNumberChangeHandler(IEventStoreRepository<Store, Guid> repository)
         {
             _repository = repository;
         }

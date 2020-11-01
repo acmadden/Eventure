@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Eventure.Infrastructure.EventStore.Repositories
 {
-    public class StoreRepository : IRepository<Store, Guid>
+    public class StoreRepository : IEventStoreRepository<Store, Guid>
     {
         private readonly Context _context;
 
