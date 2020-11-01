@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
-using Eventure.Infrastructure.Dao;
+using Eventure.Infrastructure.EventStore.Dao;
 using MongoDB.Driver;
 
-namespace Eventure.Infrastructure.Mongo.Repositories
+namespace Eventure.Infrastructure.EventStore.Repositories
 {
     public class StoreRepository : IRepository<Store, Guid>
     {

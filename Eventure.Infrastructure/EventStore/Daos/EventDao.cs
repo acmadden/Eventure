@@ -2,7 +2,7 @@ using System;
 using Eventure.Domain;
 using MongoDB.Bson;
 
-namespace Eventure.Infrastructure.Dao
+namespace Eventure.Infrastructure.EventStore.Dao
 {
     public class EventDao
     {

@@ -1,4 +1,4 @@
-namespace Eventure.Infrastructure.Mongo.Settings
+namespace Eventure.Infrastructure.EventStore.Settings
 {
     public class MongoDbSettings
     {
