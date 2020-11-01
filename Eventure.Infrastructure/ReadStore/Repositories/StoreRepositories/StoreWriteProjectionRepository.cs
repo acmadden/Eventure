@@ -9,7 +9,7 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
 {
     public class StoreWriteProjectionRepository : ProjectionRepositoryBase,
         IWriteProjectionRepository<StoreOpenedEvent>,
-        IWriteProjectionRepository<StorePhoneNumberChangeEvent>
+        IWriteProjectionRepository<StorePhoneNumberChangedEvent>
     {
         public StoreWriteProjectionRepository(IOptions<SqlServerSettings> options) : base(options) { }
 
@@ -32,7 +32,7 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
             await _connection.ExecuteAsync(sql, parameters);
         }
 
-        public async Task WriteAsync(StorePhoneNumberChangeEvent @event)
+        public async Task WriteAsync(StorePhoneNumberChangedEvent @event)
         {
             var sql = @"UPDATE dbo.Stores SET PhoneNumber = @PhoneNumber WHERE Id = @AggregateId";
             await _connection.ExecuteAsync(sql, @event);

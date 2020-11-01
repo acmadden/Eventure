@@ -35,7 +35,7 @@ namespace Eventure.Domain.Entities
                 throw new PhoneNumberUnchangedException();
             }
 
-            Apply(new StorePhoneNumberChangeEvent(phoneNumber) { AggregateId = Id });
+            Apply(new StorePhoneNumberChangedEvent(phoneNumber) { AggregateId = Id });
         }
 
         public void On(Store snapshot)
@@ -57,7 +57,7 @@ namespace Eventure.Domain.Entities
             IsActive = @event.IsActive;
         }
 
-        public void On(StorePhoneNumberChangeEvent @event)
+        public void On(StorePhoneNumberChangedEvent @event)
         {
             PhoneNumber = @event.PhoneNumber;
         }
