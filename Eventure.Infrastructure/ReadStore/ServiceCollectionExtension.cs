@@ -19,6 +19,7 @@ namespace Eventure.Infrastructure.ReadStore
         {
             services.AddTransient<IProjectionRepository<StoreOpenedEvent>, StoreProjectionRepository>();
             services.AddTransient<IProjectionRepository<StorePhoneNumberChangeEvent>, StoreProjectionRepository>();
+            services.AddTransient<IProjectionRepository<NodeInstalledEvent>, NodeProjectionRepository>();
             return services;
         }
     }
