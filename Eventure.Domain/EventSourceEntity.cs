@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Eventure.Domain
 {
@@ -12,9 +14,9 @@ namespace Eventure.Domain
 
         public void Initialize(ISnapshotData snapshot, IEnumerable<IDomainEvent> changes)
         {
-            if (changes == null)
+            if (changes.Count() == 0 && snapshot == null)
             {
-                return;
+                throw new InvalidOperationException("Aggregate does not exist");
             }
 
             if (snapshot != null)
@@ -28,6 +30,7 @@ namespace Eventure.Domain
                 Mutate(change);
                 Version++;
             }
+
         }
 
         protected void AddDomainEvent(IDomainEvent @event) => _changes.Add(@event);
