@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Dapper;
+using Eventure.Application.ReadStore.ReadModels;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
 using Eventure.Infrastructure.ReadStore.Settings;
@@ -18,7 +19,7 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
         {
             string sql = @"INSERT INTO dbo.Stores(Id, Name, PhoneNumber, Street, City, State, PostalCode, Country, IsActive) 
                 VALUES(@Id, @Name, @PhoneNumber, @Street, @City, @State, @PostalCode, @Country, @IsActive)";
-            var parameters = new
+            var parameters = new StoreReadModel
             {
                 Id = @event.AggregateId,
                 Name = @event.Name,

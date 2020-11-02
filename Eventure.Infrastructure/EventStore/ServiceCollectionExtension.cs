@@ -17,8 +17,6 @@ namespace Eventure.Infrastructure.EventStore
             BsonClassMap.RegisterClassMap<StorePhoneNumberChangedEvent>();
             BsonClassMap.RegisterClassMap<StoreInstalledNodeEvent>();
             BsonClassMap.RegisterClassMap<StoreClosedEvent>();
-            BsonClassMap.RegisterClassMap<Node>();
-            BsonClassMap.RegisterClassMap<NodeInstalledEvent>();
             services.Configure<EventStoreSettings>(section);
             services.AddScoped<Context>();
             return services;

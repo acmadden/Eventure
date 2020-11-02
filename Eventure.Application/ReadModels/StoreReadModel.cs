@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Eventure.Application.ReadStore.ReadModels
 {
@@ -14,6 +13,5 @@ namespace Eventure.Application.ReadStore.ReadModels
         public string PostalCode { get; set; }
         public string Country { get; set; }
         public bool IsActive { get; set; }
-        public List<NodeReadModel> Nodes { get; set; }
     }
 }
