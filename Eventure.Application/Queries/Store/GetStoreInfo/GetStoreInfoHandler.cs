@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Eventure.Application.ReadStore.ReadModels;
+using Eventure.Application.Projection.ReadModels;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
 using MediatR;

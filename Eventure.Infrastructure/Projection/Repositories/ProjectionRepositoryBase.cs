@@ -1,10 +1,10 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using Eventure.Infrastructure.ReadStore.Settings;
+using Eventure.Infrastructure.Projection.Settings;
 using Microsoft.Extensions.Options;
 
-namespace Eventure.Infrastructure.ReadStore.Repositories
+namespace Eventure.Infrastructure.Projection.Repositories
 {
     public abstract class ProjectionRepositoryBase : IDisposable
     {

@@ -1,5 +1,5 @@
 using System;
-using Eventure.Application.ReadStore.ReadModels;
+using Eventure.Application.Projection.ReadModels;
 using MediatR;
 
 namespace Eventure.Application.Queries

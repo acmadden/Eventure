@@ -1,6 +1,6 @@
 using System;
 
-namespace Eventure.Application.ReadStore.ReadModels
+namespace Eventure.Application.Projection.ReadModels
 {
     public class StoreReadModel
     {

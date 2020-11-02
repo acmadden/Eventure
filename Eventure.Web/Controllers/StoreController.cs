@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Eventure.Application.Commands;
 using Eventure.Application.Queries;
-using Eventure.Application.ReadStore.ReadModels;
+using Eventure.Application.Projection.ReadModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

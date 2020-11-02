@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Eventure.Application.ReadStore.ReadModels;
+using Eventure.Application.Projection.ReadModels;
 using Eventure.Application.Repositories;
-using Eventure.Infrastructure.ReadStore.Settings;
+using Eventure.Infrastructure.Projection.Settings;
 using Microsoft.Extensions.Options;
 
-namespace Eventure.Infrastructure.ReadStore.Repositories
+namespace Eventure.Infrastructure.Projection.Repositories
 {
     public class StoreReadProjectionRepository : ProjectionRepositoryBase, IReadProjectionRepository<StoreReadModel>
     {

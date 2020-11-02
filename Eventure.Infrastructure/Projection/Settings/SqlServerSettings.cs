@@ -1,4 +1,4 @@
-namespace Eventure.Infrastructure.ReadStore.Settings
+namespace Eventure.Infrastructure.Projection.Settings
 {
     public class SqlServerSettings
     {

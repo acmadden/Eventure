@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using Dapper;
-using Eventure.Application.ReadStore.ReadModels;
+using Eventure.Application.Projection.ReadModels;
 using Eventure.Application.Repositories;
 using Eventure.Domain.Entities;
-using Eventure.Infrastructure.ReadStore.Settings;
+using Eventure.Infrastructure.Projection.Settings;
 using Microsoft.Extensions.Options;
 
-namespace Eventure.Infrastructure.ReadStore.Repositories
+namespace Eventure.Infrastructure.Projection.Repositories
 {
     public class StoreWriteProjectionRepository : ProjectionRepositoryBase,
         IWriteProjectionRepository<StoreOpenedEvent>,

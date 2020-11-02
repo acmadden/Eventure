@@ -1,6 +1,6 @@
 using Eventure.Application.Commands;
 using Eventure.Infrastructure.EventStore;
-using Eventure.Infrastructure.ReadStore;
+using Eventure.Infrastructure.Projection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,8 +26,8 @@ namespace Eventure.Web
         {
             services.AddEventStoreRepositories();
             services.AddEventStore(_config.GetSection("EventStore"));
-            services.AddReadStoreRepositories();
-            services.AddReadStore(_config.GetSection("ReadStore"));
+            services.AddProjectionRepositories();
+            services.AddProjection(_config.GetSection("Projection"));
             services.AddMediatR(typeof(OpenStoreHandler));
             services.AddControllers();
         }
