@@ -66,6 +66,7 @@ namespace Eventure.Domain.Entities
             Name = snapshot.Name;
             PhoneNumber = snapshot.PhoneNumber;
             Location = snapshot.Location;
+            Nodes = snapshot.Nodes;
             IsActive = snapshot.IsActive;
         }
 
