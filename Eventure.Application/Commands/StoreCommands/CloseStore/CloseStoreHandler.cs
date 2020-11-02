@@ -18,7 +18,6 @@ namespace Eventure.Application.Commands
         {
             _storeRepository = storeRepository;
             _nodeRepository = nodeRepository;
-
         }
 
         public async Task<Unit> Handle(CloseStoreCommand command, CancellationToken cancellationToken)
