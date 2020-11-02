@@ -31,13 +31,21 @@ namespace Eventure.Infrastructure.EventStore.Repositories
                 .SortByDescending(x => x.Version)
                 .FirstOrDefaultAsync();
 
+            int version = -1;
+            ISnapshotData data = null;
+            if (snapshot != null)
+            {
+                version = snapshot.Version;
+                data = snapshot.Data;
+            }
+
             var events = await _context.Events
-                .Find<EventDao>(x => x.AggregateId == aggregateId && x.Version > snapshot.Version)
+                .Find<EventDao>(x => x.AggregateId == aggregateId && x.Version > version)
                 .ToListAsync();
 
             var domainEvents = events.Select(e => e.Data);
             var aggregate = new TAggregate();
-            aggregate.Initialize(snapshot.Data, domainEvents);
+            aggregate.Initialize(data, domainEvents);
             return aggregate;
         }
 

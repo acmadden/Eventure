@@ -8,7 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace Eventure.Infrastructure.ReadStore.Repositories
 {
-    public class NodeWriteProjectionRepository : ProjectionRepositoryBase, IWriteProjectionRepository<NodeInstalledEvent>
+    public class NodeWriteProjectionRepository : ProjectionRepositoryBase,
+        IWriteProjectionRepository<NodeInstalledEvent>,
+        IWriteProjectionRepository<NodeStatusChangedEvent>
     {
         public NodeWriteProjectionRepository(IOptions<SqlServerSettings> options) : base(options) { }
 
@@ -23,8 +25,20 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
                 Name = @event.Name,
                 Number = @event.Number,
                 SystemType = @event.SystemType,
-                @Offline = @event.Status.Offline,
-                @OfflineReason = @event.Status.Reason
+                Offline = @event.Status.Offline,
+                OfflineReason = @event.Status.Reason
+            };
+            await _connection.ExecuteAsync(sql, parameters);
+        }
+
+        public async Task WriteAsync(NodeStatusChangedEvent @event)
+        {
+            var sql = @"UPDATE dbo.Nodes SET Offline = @Offline, OfflineReason = @OfflineReason WHERE Id = @Id";
+            var parameters = new NodeReadModel()
+            {
+                Id = @event.AggregateId,
+                Offline = @event.Status.Offline,
+                OfflineReason = @event.Status.Reason
             };
             await _connection.ExecuteAsync(sql, parameters);
         }

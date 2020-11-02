@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Eventure.Domain.ValueObjects;
 
 namespace Eventure.Domain.Entities
@@ -9,18 +10,19 @@ namespace Eventure.Domain.Entities
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location Location { get; set; }
+        public List<Guid> Nodes { get; set; } = new List<Guid>();
         public bool IsActive { get; set; }
 
         public static Store OpenStore(string name, string phoneNumber, Location location)
         {
             if (String.IsNullOrEmpty(name))
             {
-                throw new InvalidStoreNameException();
+                throw new ArgumentException("Store name was null or empty.");
             }
 
             if (String.IsNullOrEmpty(phoneNumber))
             {
-                throw new InvalidPhoneNumberException();
+                throw new ArgumentException("Phone number was null or empty.");
             }
 
             var store = new Store();
@@ -32,10 +34,29 @@ namespace Eventure.Domain.Entities
         {
             if (PhoneNumber == phoneNumber)
             {
-                throw new PhoneNumberUnchangedException();
+                throw new ArgumentException("Phone number was unchanged.");
             }
 
             Apply(new StorePhoneNumberChangedEvent(phoneNumber) { AggregateId = Id });
+        }
+
+        public void InstallNode(Guid nodeId)
+        {
+            if (Nodes.Contains(nodeId))
+            {
+                throw new ArgumentException("Node already installed at store.");
+            }
+
+            Apply(new StoreInstalledNodeEvent(nodeId));
+        }
+
+        public void CloseStore()
+        {
+            if (!IsActive)
+            {
+                throw new ArgumentException("Store is already closed.");
+            }
+            Apply(new StoreClosedEvent(Id));
         }
 
         public void On(Store snapshot)
@@ -60,6 +81,16 @@ namespace Eventure.Domain.Entities
         public void On(StorePhoneNumberChangedEvent @event)
         {
             PhoneNumber = @event.PhoneNumber;
+        }
+
+        public void On(StoreInstalledNodeEvent @event)
+        {
+            Nodes.Add(@event.NodeId);
+        }
+
+        public void On(StoreClosedEvent @event)
+        {
+            IsActive = @event.IsActive;
         }
     }
 }

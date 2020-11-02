@@ -19,6 +19,11 @@ namespace Eventure.Domain.Entities
             return node;
         }
 
+        public void ChangeStatus(NodeStatus status)
+        {
+            Apply(new NodeStatusChangedEvent(Id, status));
+        }
+
         public void On(Node snapshot)
         {
             Id = snapshot.Id;
@@ -40,5 +45,9 @@ namespace Eventure.Domain.Entities
             Status = @event.Status;
         }
 
+        public void On(NodeStatusChangedEvent @event)
+        {
+            Status = @event.Status;
+        }
     }
 }

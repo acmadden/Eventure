@@ -21,11 +21,22 @@ namespace Eventure.Infrastructure.ReadStore.Repositories
                 LEFT JOIN [dbo].[Nodes] nodes 
                     ON stores.Id = nodes.StoreId
                 WHERE stores.Id = @StoreId";
+
+            var lookup = new Dictionary<Guid, StoreReadModel>();
             var stores = await _connection.QueryAsync<StoreReadModel, NodeReadModel, StoreReadModel>(query, (store, node) =>
             {
-                store.Nodes = store.Nodes ?? new List<NodeReadModel>();
-                store.Nodes.Add(node);
-                return store;
+                StoreReadModel readModel;
+                if (!lookup.TryGetValue(store.Id, out readModel))
+                {
+                    readModel = store;
+                    lookup.Add(readModel.Id, readModel);
+                }
+                readModel.Nodes = readModel.Nodes ?? new List<NodeReadModel>();
+                if (node != null)
+                {
+                    readModel.Nodes.Add(node);
+                }
+                return readModel;
             },
             new { StoreId = id });
             return stores.FirstOrDefault();

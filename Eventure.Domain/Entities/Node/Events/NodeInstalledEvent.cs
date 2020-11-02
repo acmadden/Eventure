@@ -20,7 +20,7 @@ namespace Eventure.Domain.Entities
             Name = name;
             Number = number;
             SystemType = systemType;
-            Status = new NodeStatus() { Offline = true, Reason = "Install" };
+            Status = new NodeStatus() { Offline = true, Reason = "First Install" };
             CreatedAt = DateTime.UtcNow;
         }
     }

@@ -48,5 +48,11 @@ namespace Eventure.Web.Controllers
             command.AggregateId = id;
             await _mediator.Send(command);
         }
+
+        [HttpDelete("{id}")]
+        public async Task CloseStoreAsync(Guid id)
+        {
+            await _mediator.Send(new CloseStoreCommand() { Id = id });
+        }
     }
 }
