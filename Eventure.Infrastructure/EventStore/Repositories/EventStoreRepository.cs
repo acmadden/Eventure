@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Eventure.Application.Repositories;
@@ -51,7 +52,8 @@ namespace Eventure.Infrastructure.EventStore.Repositories
 
         public async Task SaveAsync(TAggregate aggregate)
         {
-
+            var events = new List<EventDao>();
+            SnapshotDao snapshot = null;
             foreach (var domainEvent in aggregate.DomainEvents)
             {
                 var @event = new EventDao()
@@ -62,21 +64,29 @@ namespace Eventure.Infrastructure.EventStore.Repositories
                     Data = domainEvent,
                     CreatedAt = domainEvent.CreatedAt
                 };
-                await _context.Events.InsertOneAsync(@event);
-
                 if (aggregate.Version > 0 && aggregate.Version % _settings.SnapshotInterval == 0)
                 {
-                    var snapshot = new SnapshotDao()
+                    snapshot = new SnapshotDao()
                     {
                         AggregateId = aggregate.Id,
                         Version = aggregate.Version,
                         Data = aggregate,
                         CreatedAt = DateTime.UtcNow
                     };
-                    await _context.Snapshots.InsertOneAsync(snapshot);
                 }
+                events.Add(@event);
+            }
 
-                await _mediator.Publish(domainEvent);
+            await _context.Events.InsertManyAsync(events);
+
+            if (snapshot != null)
+            {
+                await _context.Snapshots.InsertOneAsync(snapshot);
+            }
+
+            foreach (var @event in events)
+            {
+                await _mediator.Publish(@event.Data);
             }
         }
     }
