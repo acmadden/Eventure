@@ -6,11 +6,11 @@ using MediatR;
 
 namespace Eventure.Application.Projections
 {
-    public class StoreOpenedProjectionHandler : INotificationHandler<StoreOpenedEvent>
+    public class StoreOpenedHandler : INotificationHandler<StoreOpenedEvent>
     {
         private readonly IWriteProjectionRepository<StoreOpenedEvent> _repository;
 
-        public StoreOpenedProjectionHandler(IWriteProjectionRepository<StoreOpenedEvent> repository)
+        public StoreOpenedHandler(IWriteProjectionRepository<StoreOpenedEvent> repository)
         {
             _repository = repository;
         }
